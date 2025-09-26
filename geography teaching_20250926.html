@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教學網頁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0891b2',
+                        secondary: '#06b6d4',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 毛玻璃效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-effect {
+            background: rgba(17, 24, 39, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(8, 145, 178, 0.1);
+        }
+        .dark .glass-card:hover {
+            background: rgba(17, 24, 39, 0.5);
+            box-shadow: 0 20px 40px rgba(8, 145, 178, 0.2);
+        }
+        
+        .link-preview-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+        .dark .link-preview-card {
+            background: rgba(17, 24, 39, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .link-preview-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(8, 145, 178, 0.15);
+        }
+        .dark .link-preview-card:hover {
+            background: rgba(17, 24, 39, 0.45);
+            box-shadow: 0 15px 35px rgba(8, 145, 178, 0.25);
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #0891b2, #06b6d4, #10b981, transparent);
+            height: 2px;
+            border-radius: 1px;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #10b981 100%);
+        }
+        
+        .glass-button {
+            background: rgba(8, 145, 178, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(8, 145, 178, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            background: rgba(8, 145, 178, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        /* 全局背景漸層 */
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #ecfdf5 75%, #f0fdf4 100%);
+            min-height: 100vh;
+        }
+        .dark body {
+            background: linear-gradient(135deg, #0c1420 0%, #0f172a 25%, #064e3b 75%, #052e16 100%);
+        }
+    </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.bd4eeeb8e8e02052ee92.js"></script></head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div class="min-h-screen">
+        <!-- 頁面標題 -->
+        <header class="gradient-bg text-white py-12 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+            <div class="container mx-auto px-4 relative">
+                <h1 class="text-4xl md:text-5xl font-bold text-center" style="text-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.2), 0 8px 25px rgba(8,145,178,0.2);">從馬太鞍堰塞湖看GIS</h1>
+            </div>
+        </header>
+
+        <!-- 主要內容區域 -->
+        <main class="container mx-auto px-4 py-8 max-w-4xl">
+            
+            <!-- 1. 教學簡介 -->
+            <section class="mb-12">
+                <div class="glass-card rounded-xl p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6 flex items-center">
+                        <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                        🚨 發生什麼事
+                    </h2>
+                    <div class="prose dark:prose-invert max-w-none">
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-2xl">
+                            最近花蓮馬太鞍堰塞湖因颱風豪雨溢流，造成嚴重災情。這個發生在我們身邊的真實事件，正是理解台灣自然環境的重要案例。
+                        </p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-2xl">
+                            接下來的課程，我們將一起探討這次災害的地理背景、分析颱風與地形如何交互作用造成災情、了解當地的應變措施，並思考面對極端氣候，我們可以如何降低災害風險。透過這個案例，大家將學會用地理知識解讀新聞事件，並思考人與環境的關係。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 分隔線 -->
+            <div class="section-divider mb-12"></div>
+
+            <!-- 2. 教學對應點 -->
+            <section class="mb-12">
+                <div class="glass-card rounded-xl p-6 md:p-8">
+                    <button onclick="toggleSection('teachingPoints')" class="w-full flex items-center justify-between text-left">
+                        <h2 class="text-2xl md:text-3xl font-semibold text-primary flex items-center">
+                            <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                            📚 教學對應點
+                        </h2>
+                        <svg id="teachingPointsIcon" class="w-6 h-6 text-primary transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="teachingPointsContent" class="mt-6 space-y-4 hidden">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <span class="font-medium text-primary">第二章</span> 地理資訊和田野實察-各種GIS分析功能
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <span class="font-medium text-primary">第三章</span> 環境系統與生態景觀-地質災害
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 分隔線 -->
+            <div class="section-divider mb-12"></div>
+
+            <!-- 3. 教學內容 -->
+            <section class="mb-12">
+                <div class="glass-card rounded-xl p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6 flex items-center">
+                        <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                        💡 原來是這樣
+                    </h2>
+                    
+                    <!-- 文字內容 -->
+                    <div class="prose dark:prose-invert max-w-none mb-8">
+
+                        
+                        <h4 class="text-2xl font-semibold text-primary mb-5">🏔️ 什麼是堰塞湖？</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-xl">
+                            堰塞湖是當河道被土石阻塞後形成的天然湖泊。當地震、颱風或豪雨發生時，大量土石會滑落到河道中，就像在河流中蓋了一座天然的水壩。堰塞湖可能存在很久，但也可能在短時間內消失，這就是它的危險之處。
+                        </p>
+
+                        <h4 class="text-2xl font-semibold text-primary mb-5">🏞️ 馬太鞍溪堰塞湖的形成</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-xl">
+                            2025年7月，颱風薇帕帶來豪雨，造成花蓮縣馬太鞍溪上游山坡地大規模崩塌，形成了一個巨大的堰塞湖。這個堰塞湖長達2.3公里，土方體積高達2億立方公尺，相當於80座台北101大樓的體積！
+                        </p>
+
+                        <h4 class="text-2xl font-semibold text-primary mb-5">📡 GIS技術在災害監測中的重要性</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-xl">
+                            面對堰塞湖這樣的天然災害，政府運用了多種GIS技術進行監測：
+                        </p>
+                        <ul class="list-disc pl-6 space-y-4 mb-6 text-gray-700 dark:text-gray-300 text-xl">
+                            <li><span class="font-medium text-gray-800 dark:text-gray-200">衛星影像監測：</span>透過衛星定期拍攝堰塞湖的影像，科學家可以觀察湖水水位變化、壩體是否穩定，以及周圍環境的改變情況。</li>
+                            <li><span class="font-medium text-gray-800 dark:text-gray-200">空中勘查與建模：</span>利用無人機或直升機進行空中勘查，收集地形資料後，透過電腦建立3D地形模型，幫助專家分析堰塞湖的風險。</li>
+                            <li><span class="font-medium text-gray-800 dark:text-gray-200">風險評估與預警系統：</span>GIS系統可以模擬堰塞湖潰決後的淹水範圍，製作災害風險地圖。政府因此能夠提前劃定危險區域，制定疏散計畫。</li>
+                        </ul>
+
+                        <h4 class="text-2xl font-semibold text-primary mb-5">⚖️ 災害應變與環境保育的挑戰</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-xl">
+                            馬太鞍溪堰塞湖案例顯示了環境保育的重要性。為什麼不能直接挖掉堰塞湖呢？原因包括：
+                        </p>
+                        <ul class="list-disc pl-6 space-y-4 mb-6 text-gray-700 dark:text-gray-300 text-xl">
+                            <li>地理位置偏遠：位於深山中，大型機具無法進入</li>
+                            <li>生態考量：強制挖除可能造成更大的環境破壞</li>
+                            <li>技術限制：爆破可能引發更大規模的山崩</li>
+                        </ul>
+
+                        <h4 class="text-2xl font-semibold text-primary mb-5">🛡️ GIS的防災價值</h4>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4 text-xl">
+                            透過馬太鞍溪的例子，我們可以看到GIS技術如何幫助政府：
+                        </p>
+                        <ul class="list-disc pl-6 space-y-4 mb-8 text-gray-700 dark:text-gray-300 text-xl">
+                            <li>即時監控災害發展</li>
+                            <li>製作精確的疏散地圖</li>
+                            <li>評估災害影響範圍</li>
+                            <li>協助救災資源調配</li>
+                        </ul>
+
+                        <div class="border-t border-gray-200 dark:border-gray-600 pt-6">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                以下整合了與馬太鞍溪堰塞湖相關的重要學習資源，包括專業監測團隊的現場紀實、官方機構的即時更新、新聞深度分析，以及完整的災害科普說明。透過這些多元資源，您可以從不同角度深入了解堰塞湖的形成機制、監測方法、災害影響，以及政府的應變措施：
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 外連連結預覽區域 -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">相關資源連結</h3>
+                        
+                        <!-- 連結預覽卡片 1: NDHU強韌防災團隊 -->
+                        <a href="https://storymaps.arcgis.com/stories/5864cf7ed3b54f83a5247f3f9b39bec2" target="_blank" rel="noopener noreferrer" class="link-preview-card block bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+                            <div class="md:flex">
+                                <div class="md:w-48 h-32 md:h-auto bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <div class="p-4 flex-1">
+                                    <h4 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                                        NDHU強韌防災團隊：馬太鞍溪堰塞湖監測紀實
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        東華大學防災團隊提供的專業監測報告，透過 ArcGIS Story Maps 詳細記錄馬太鞍溪堰塞湖的形成過程、監測數據與現場觀察，是了解專業災害監測技術的重要資源。
+                                    </p>
+                                    <div class="mt-3 flex items-center text-primary text-sm">
+                                        <span>storymaps.arcgis.com</span>
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 連結預覽卡片 2: 林業及自然保育署 YouTube -->
+                        <a href="https://www.youtube.com/watch?v=Jmoftekfmbg" target="_blank" rel="noopener noreferrer" class="link-preview-card block bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+                            <div class="md:flex">
+                                <div class="md:w-48 h-32 md:h-auto bg-red-600 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                                    </svg>
+                                </div>
+                                <div class="p-4 flex-1">
+                                    <h4 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                                        林業及自然保育署：馬太鞍溪堰塞湖壩體現況更新
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        官方機構提供的即時更新影片，包含堰塞湖壩體的最新狀況、政府的監測作為以及相關的應變措施說明，是了解官方立場與處置方式的重要來源。
+                                    </p>
+                                    <div class="mt-3 flex items-center text-primary text-sm">
+                                        <span>youtube.com</span>
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 連結預覽卡片 3: 公視P# 新聞實驗室 YouTube -->
+                        <a href="https://www.youtube.com/watch?v=SjzJlBt3DF0" target="_blank" rel="noopener noreferrer" class="link-preview-card block bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+                            <div class="md:flex">
+                                <div class="md:w-48 h-32 md:h-auto bg-gradient-to-br from-purple-600 to-red-600 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                                    </svg>
+                                </div>
+                                <div class="p-4 flex-1">
+                                    <h4 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                                        公視P# 新聞實驗室：馬太鞍溪堰塞湖為何潰壩？監測團隊告訴你
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        公視新聞實驗室深入採訪監測團隊，以科學角度解析堰塞湖潰壩的成因機制，提供易懂的科普說明，適合學習災害成因與預警技術。
+                                    </p>
+                                    <div class="mt-3 flex items-center text-primary text-sm">
+                                        <span>youtube.com</span>
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 連結預覽卡片 4: 中央社新聞 -->
+                        <a href="https://www.cna.com.tw/news/ahel/202509245005.aspx" target="_blank" rel="noopener noreferrer" class="link-preview-card block bg-white dark:bg-gray-700 rounded-lg overflow-hidden">
+                            <div class="md:flex">
+                                <div class="md:w-48 h-32 md:h-auto bg-gradient-to-br from-indigo-600 to-blue-700 flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                                    </svg>
+                                </div>
+                                <div class="p-4 flex-1">
+                                    <h4 class="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                                        中央社：堰塞湖形成原因與處置方式一文看懂
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        中央社完整整理堰塞湖的科普知識，包含形成原因、危險性、政府處置方式，以及台灣過去的處置案例，是系統性了解堰塞湖災害的最佳入門資源。
+                                    </p>
+                                    <div class="mt-3 flex items-center text-primary text-sm">
+                                        <span>cna.com.tw</span>
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 頁腳 -->
+        <footer class="glass-effect py-6 mt-12">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-gray-600 dark:text-gray-300">© 2024 從馬太鞍堰塞湖看GIS. 保留所有權利.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 深色模式切換
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+
+
+        // 切換教學對應點顯示/隱藏
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + 'Content');
+            const icon = document.getElementById(sectionId + 'Icon');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 平滑滾動效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body></html>
